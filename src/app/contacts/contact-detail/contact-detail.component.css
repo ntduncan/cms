@@ -1,0 +1,9 @@
+.margin-right {
+    margin-right: 5px;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

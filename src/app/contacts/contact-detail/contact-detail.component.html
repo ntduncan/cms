@@ -3,6 +3,21 @@
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <h2>{{contact?.name}}</h2>
+                <div class="row">
+                    <div class="col-xs-7">
+                        <img src="{{contact?.imageUrl}}" alt="" width=70>
+                    </div>
+                    <div class="col-xs-5 btn-group">
+                        <span class="">
+                            <button class="btn btn-primary margin-right">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p>Email: {{contact?.email}}</p>
+                <p>Phone: {{contact?.phone}}</p>
             </div>
         </div>
     </div>
