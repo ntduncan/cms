@@ -1,17 +1,17 @@
 <div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading container">
-                    <h3 class="panel-title pull-left">Contacts</h3>
-                    <a class="btn btn-success pull-right">New Contact</a>
+  <div class="col-xs-12">
+  <div class="panel panel-default">
+            <div class="panel-heading col-xs-12">
+                <span class="panel-title col-xs-9">Contacts</span>
+                <a class="btn btn-success col-xs-3">New Contact</a>
             </div>
-            <div class="panel-body">
+            <div class="panel-body margin-top">
                 <div class="row">
                     <div class="col-xs-12">
-                      <a
-                        href="#"
+                      <div
                         class="list-group-item clearfix"
-                        *ngFor="let contact of contacts">
+                        *ngFor="let contact of contacts"
+                        (click)="onSelected(contact)">
                         <div class="pull-left">
                           <h4 class="list-group-item-heading">{{contact.name}}</h4>
                           <p class="list-group-item-text"></p>
@@ -23,8 +23,7 @@
                             class="img-responsive"
                             style="max-height: 50px;">
                         </span>
-                      </a>
-                      <!-- <cms-contact-detail></cms-contact-detail> -->
+                      </div>
                     </div>
                   </div>
             </div>

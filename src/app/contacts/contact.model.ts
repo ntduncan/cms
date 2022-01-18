@@ -1,5 +1,5 @@
 
-export default class Contact{
+export class Contact{
     constructor(
         public id: number, 
         public name: string, 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Contact } from '../contact.model';
 
 @Component({
   selector: 'cms-contact-list',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
+
+  @Output() selectedContactEvent = new EventEmitter<Contact>();
+
 
   contacts = [
     {id: "1",
@@ -30,4 +34,7 @@ export class ContactListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSelected = (contact) => {
+    this.selectedContactEvent.emit(contact);
+  }
 }
