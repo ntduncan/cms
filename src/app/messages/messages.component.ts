@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Message} from "./Messages.model";
 
 @Component({
   selector: 'cms-messages',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
+ 
   constructor() { }
 
   ngOnInit(): void {

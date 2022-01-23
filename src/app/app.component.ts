@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cms';
+  selection = "messages";
+
+  onRouteSelection(selection: string) {
+    this.selection = selection;
+  }
 }
