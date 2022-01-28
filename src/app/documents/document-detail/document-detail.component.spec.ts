@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DocumentDetailComponent } from './document-detail.component';
+// import { Document } from '../'
 
 describe('DocumentDetailComponent', () => {
   let component: DocumentDetailComponent;
