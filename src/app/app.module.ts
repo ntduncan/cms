@@ -15,6 +15,7 @@ import { MessageListComponent } from './messages/message-list/message-list.compo
 import { MessageItemComponent } from './messages/message-item/message-item.component';
 import { MessageEditComponent } from './messages/message-edit/message-edit.component';
 import { DropdownDirective } from './dropDown.directive';
+import { ContactService } from './contact.service';
 
 @NgModule({
   declarations: [
