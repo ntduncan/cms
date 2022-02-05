@@ -9,7 +9,6 @@ import {ContactService} from '../../contact.service';
 })
 export class ContactListComponent implements OnInit {
   @Input() contacts: Contact[];
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
 
 
   constructor(private contactService: ContactService) { 
@@ -20,6 +19,6 @@ export class ContactListComponent implements OnInit {
   }
 
   onSelected = (contact) => {
-    this.selectedContactEvent.emit(contact);
+    this.contactService.contactEmitter.emit(contact);
   }
 }
