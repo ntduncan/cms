@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DocumentService } from 'src/app/document.service';
 import { Document } from '../Document.model';
 
 @Component({
@@ -9,9 +10,10 @@ import { Document } from '../Document.model';
 export class DocumentDetailComponent implements OnInit {
   @Input() document: Document;
   
-  constructor() { }
+  constructor(public documentService: DocumentService) { }
 
   ngOnInit(): void {
+
   }
 
 }
