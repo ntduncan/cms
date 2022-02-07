@@ -33,7 +33,7 @@ export class MessageEditComponent implements OnInit {
       Math.random().toString(),
       this.subject.nativeElement.value,
       this.msgText.nativeElement.value,
-      'Nate'
+      '12'
     );
     console.log(message)
     this.addMessage.emit(message);
