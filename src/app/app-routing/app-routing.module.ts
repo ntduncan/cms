@@ -12,7 +12,9 @@ const appRoutes: Routes = [
   {
     path: 'documents',
     component: DocumentsComponent,
-    children: [{ path: ':id', component: DocumentDetailComponent }],
+    children: [
+      { path: ':id', component: DocumentDetailComponent }
+    ],
   },
   { path: 'contacts', component: ContactsComponent },
   { path: 'messages', component: MessagesComponent },
