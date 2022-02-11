@@ -18,6 +18,7 @@ export class DocumentService {
   }
 
   getDocument(id: string): Document {
+    console.log(id)
     this.documents.map((document) => {
       if (document.id === id) {
         return document;
