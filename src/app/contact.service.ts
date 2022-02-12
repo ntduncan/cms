@@ -22,4 +22,10 @@ export class ContactService {
      const contact = this.contacts.find(contact => contact.id === id)
      return contact !== undefined ? contact : null;
    }
+
+   deleteContact(contact: Contact) {
+     if(this.contacts.includes(contact)){
+       this.contacts.splice(this.contacts.indexOf(contact), 1);
+     }
+   }
 }

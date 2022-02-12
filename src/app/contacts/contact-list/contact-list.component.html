@@ -3,7 +3,7 @@
   <div class="panel panel-default">
             <div class="panel-heading col-xs-12">
                 <span class="panel-title col-xs-9">Contacts</span>
-                <a class="btn btn-success col-xs-3">New Contact</a>
+                <a class="btn btn-success col-xs-3" [routerLink]="['/contacts', 'new']">New Contact</a>
             </div>
             <div class="panel-body margin-top">
                 <div class="row">
@@ -12,6 +12,7 @@
                         class="list-group-item clearfix"
                         *ngFor="let contact of contacts"
                         (click)="onSelected(contact)"
+                        [routerLink]="['/contacts', contact.id]"
                         >
                         <div class="pull-left">
                           <h4 class="list-group-item-heading">{{contact.name}}</h4>

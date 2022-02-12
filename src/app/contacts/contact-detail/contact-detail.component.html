@@ -9,8 +9,8 @@
                     </div>
                     <div class="col-xs-5 btn-group">
                         <span class="">
-                            <button class="btn btn-primary margin-right">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-primary margin-right" [routerLink]="['/contacts',contact?.id, 'edit']">Edit</button>
+                            <button class="btn btn-danger" (click)="onDelete()">Delete</button>
                         </span>
                     </div>
                 </div>
