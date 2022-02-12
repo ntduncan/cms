@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Document } from './documents/document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 
@@ -9,7 +10,9 @@ export class DocumentService {
   private documents: Document[] = [];
   public documentEmitter = new EventEmitter<Document>();
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router) {
     this.documents = MOCKDOCUMENTS;
   }
 
@@ -18,16 +21,30 @@ export class DocumentService {
   }
 
   getDocument(id: string): Document {
-    console.log(id)
+    let requestedDocument: Document;
     this.documents.map((document) => {
       if (document.id === id) {
-        return document;
+        requestedDocument = document;
       }
     });
+
+    if(requestedDocument !== null) return requestedDocument 
+      
     return null;
   }
 
   deleteDocument(document: Document) {
-    return; //TODO: This still need to be build
+    this.documents.splice(this.documents.indexOf(document),1);
+    this.router.navigate(['/documents', {relativeTo: this.route}])
+
+  //   if (!document) {
+  //     return;
+  //  }
+  //  const pos = this.documents.indexOf(document);
+  //  if (pos < 0) {
+  //     return;
+  //  }
+  //  this.documents.splice(pos, 1);
+  //  this.documentChangedEvent.emit(this.documents.slice();
   }
 }

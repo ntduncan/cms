@@ -22,13 +22,20 @@ export class DocumentDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = params.id;
-      this.documentService.getDocument(this.id)
+      this.document = this.documentService.getDocument(this.id);
+      console.log(this.document)
     })
     this.nativeWindow = this.windRefService.getNativeWindow();
   }
 
   onDelete() {
     this.documentService.deleteDocument(this.document);
+  }
+
+  onView() {
+    if(this.document.url){
+      this.nativeWindow.open(this.document.url)
+    }
   }
 
 }
