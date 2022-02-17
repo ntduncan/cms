@@ -9,16 +9,15 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-  @Input() contacts: Contact[];
+  contacts: Contact[];
+  subscription: Subscription;
 
 
-  constructor(private contactService: ContactService, private subscription: Subscription) { 
-    this.contacts = contactService.getContacts();
-  }
+  constructor(private contactService: ContactService) { this.contacts = this.contactService.getContacts(); }
 
   ngOnInit(): void {
-    this.subscription = this.contactService.contactListChangedEvent.subscribe((contacts: Contact[]) => {
-      this.contacts = contacts
+      this.subscription = this.contactService.contactListChangedEvent.subscribe((contacts: Contact[]) => {
+      this.contacts = contacts;
     })
   }
 
@@ -27,6 +26,6 @@ export class ContactListComponent implements OnInit {
   }
 
   onSelected = (contact) => {
-    this.contactService.contactListChangedEvent.emit(contact);
+    // this.contactService.contactListChangedEvent.emit(contact);
   }
 }

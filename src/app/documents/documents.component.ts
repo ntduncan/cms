@@ -12,7 +12,7 @@ export class DocumentsComponent implements OnInit {
   selectedDocument: Document;
   documents: Document[];
   constructor(public documentService: DocumentService) {
-    this.documents = this.documentService.getDocuments();
+    // this.documents = this.documentService.getDocuments();
    }
 
   ngOnInit(): void {
