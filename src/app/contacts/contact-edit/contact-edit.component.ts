@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContactService } from 'src/app/contact.service';
+import { Contact } from '../contact.model';
 
 @Component({
   selector: 'cms-contact-edit',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactEditComponent implements OnInit {
 
-  constructor() { }
+  originalContact: Contact;
+  contact: Contact;
+  groupContacts: Contact[] = [];
+  editMode: boolean = false;
+  id: string;
+  
+  constructor(
+       private contactService: ContactService,
+       private router: Router,
+       private route: ActivatedRoute) {
+       }
 
   ngOnInit(): void {
+  }
+
+  removeOneItem(i: any){
+
+  }
+
+  onCancel() {
+
   }
 
 }
