@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <form id="document-edit" (ngSumbit)="onSubmit(f)" #f="ngForm">
+    <form id="document-edit">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Document Title:</label>
@@ -10,10 +10,7 @@
             id="name"
             class="form-control"
             size="120"
-            max="120"
-            [ngModel]="document?.name"
-            #name="ngModel"
-            >
+            max="120">
         </div>
       </div>
 
@@ -25,10 +22,7 @@
             id="description"
             class="form-control"
             size="120"
-            max="255"
-            [ngModel]=""
-            #description="ngModel"
-            required>
+            max="255">
         </div>
       </div>
 
@@ -40,10 +34,7 @@
             id="url"
             class="form-control"
             size="150"
-            max="255"
-            [ngModel]="document?.url"
-            #url="ngModel"
-            required>
+            max="255">
         </div>
       </div>
 
