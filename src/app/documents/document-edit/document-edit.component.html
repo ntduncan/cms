@@ -10,7 +10,11 @@
             id="name"
             class="form-control"
             size="120"
-            max="120">
+            max="120"
+            [ngModel]="document?.name"
+            #name="ngModel"
+            required
+            >
         </div>
       </div>
 
