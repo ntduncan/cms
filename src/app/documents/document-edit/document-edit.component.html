@@ -16,7 +16,6 @@
             #name="ngModel"
             required
             >
-            <p class="help-block" *ngIf="name.invalid && name.touched">The document name must have a value.</p>
           </div>
       </div>
 
@@ -46,9 +45,11 @@
             max="255"
             name="url"
             #url="ngModel"
-            [ngModel]="document?.url">
+            [ngModel]="document?.url"
+            required>
         </div>
       </div>
+      <div class="alert-danger" *ngIf="f.invalid && ((url.touched && url.invalid) || (name.touched && name.invalid))">The Document title and Document URL are required.</div>
 
       <div class="row">
         <div class="col-xs-12 btn-toolbar">

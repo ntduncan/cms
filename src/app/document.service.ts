@@ -59,7 +59,7 @@ export class DocumentService {
 
   deleteDocument(document: Document) {
     this.documents.splice(this.documents.indexOf(document), 1);
-    this.router.navigate(['/documents', { relativeTo: this.route }]);
+    this.router.navigateByUrl('/documents');
   }
 
   getMaxId(): number {
