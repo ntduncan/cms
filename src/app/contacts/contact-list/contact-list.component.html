@@ -13,6 +13,10 @@
                         *ngFor="let contact of contacts"
                         (click)="onSelected(contact)"
                         [routerLink]="['/contacts', contact.id]"
+                        dnd-draggable
+                        [dragEnables]="true"
+                        [dragData]="contact"
+                        [dropZones]="['contactGroup']"
                         >
                         <div class="pull-left">
                           <h4 class="list-group-item-heading">{{contact.name}}</h4>

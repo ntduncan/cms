@@ -44,6 +44,10 @@ export class ContactEditComponent implements OnInit {
 
   }
 
+  addToGroup(e: Event){
+    return;
+  }
+
   onCancel() {
     this.router.navigateByUrl('/contacts')
   }
