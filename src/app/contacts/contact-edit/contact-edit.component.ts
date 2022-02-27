@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DragDropData } from 'ng2-dnd';
 import { ContactService } from 'src/app/contact.service';
 import { Contact } from '../contact.model';
 
@@ -40,12 +41,17 @@ export class ContactEditComponent implements OnInit {
     });
   }
 
-  removeOneItem(i: any){
-
+  removeOneItem(e: any){
+    const data = e.dragData;
+    this.groupContacts = data.filter(contact=> contact.id !== data.id)
+    
   }
 
-  addToGroup(e: Event){
-    return;
+  addToGroup(e: any){
+    const data = e.dragData;
+    const addedContact = new Contact(data.id, data.name, data.email, data.phone, data.imageUrl, data?.group);
+    this.groupContacts.push(addedContact);
+    console.log(this.groupContacts)
   }
 
   onCancel() {
@@ -53,7 +59,7 @@ export class ContactEditComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    const newContact = new Contact('1', form.value.name, form.value.email, form.value.phone, form.value.imageUrl, []);
+    const newContact = new Contact('1', form.value.name, form.value.email, form.value.phone, form.value.imageUrl, this.groupContacts);
 
     if (!this.editMode) {
       this.contactService.addContact(newContact);
