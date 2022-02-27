@@ -41,17 +41,30 @@ export class ContactEditComponent implements OnInit {
     });
   }
 
-  removeOneItem(e: any){
-    const data = e.dragData;
-    this.groupContacts = data.filter(contact=> contact.id !== data.id)
+  onRemoveItem(index: number){
+    if(index < 0 || index > this.groupContacts?.length){
+      return;
+    }
+    this.groupContacts.splice(index, 1);
     
   }
 
   addToGroup(e: any){
-    const data = e.dragData;
-    const addedContact = new Contact(data.id, data.name, data.email, data.phone, data.imageUrl, data?.group);
+    const addedContact: Contact = e.dragData;
+    if(this.isInvalidContact(addedContact)) return;
     this.groupContacts.push(addedContact);
     console.log(this.groupContacts)
+  }
+
+  isInvalidContact(newContact: Contact){
+    if(!newContact) return true; 
+    if(this.contact && newContact.id === this.contact.id) return true;
+    
+    for (let i = 0; i < this.groupContacts.length; i++){
+      if (newContact.id === this.groupContacts[i].id) return true;
+  }
+  return false;
+
   }
 
   onCancel() {
