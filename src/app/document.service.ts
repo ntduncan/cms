@@ -59,7 +59,9 @@ export class DocumentService {
 
   deleteDocument(document: Document) {
     this.documents.splice(this.documents.indexOf(document), 1);
-    this.router.navigateByUrl('/documents');
+    const documentListClone = this.documents.slice();
+    this.documentListChangedEvent.next(documentListClone);
+    return;
   }
 
   getMaxId(): number {

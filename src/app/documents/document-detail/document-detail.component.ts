@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DocumentService } from 'src/app/document.service';
 import { Document } from '../Document.model';
 import {WindRefService} from '../../wind-ref-service.service';
@@ -17,7 +17,8 @@ export class DocumentDetailComponent implements OnInit {
   constructor(
     public documentService: DocumentService, 
     private route: ActivatedRoute,
-    private windRefService: WindRefService) { }
+    private windRefService: WindRefService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -30,6 +31,7 @@ export class DocumentDetailComponent implements OnInit {
 
   onDelete() {
     this.documentService.deleteDocument(this.document);
+    this.router.navigate(['/documents']);
   }
 
   onView() {

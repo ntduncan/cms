@@ -52,6 +52,9 @@ export class ContactService {
    deleteContact(contact: Contact) {
      if(this.contacts.includes(contact)){
        this.contacts.splice(this.contacts.indexOf(contact), 1);
+       const contactListClone = this.contacts.slice();
+       this.contactListChangedEvent.next(contactListClone); //This is super important
+
      }
    }
 
