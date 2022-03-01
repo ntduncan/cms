@@ -15,11 +15,12 @@ export class DocumentListComponent implements OnInit {
   constructor(public documentService: DocumentService) { }
 
   ngOnInit(): void {
-    this.documents = this.documentService.getDocuments();
     
     this.subscription = this.documentService.documentListChangedEvent.subscribe((documents: Document[]) => {
       this.documents = documents;
     })
+    this.documents = this.documentService.getDocuments();
+
   }
 
   ngOnDestroy() {

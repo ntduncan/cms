@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import {MOCKMESSAGES} from './MOCKMESSAGES';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Message} from './messages/Messages.model';
 
 @Injectable({
@@ -9,12 +9,20 @@ export class MessageService {
   messages: Message [] = [];
   messageChangedEvent = new EventEmitter<Message[]>();
 
-  constructor() { 
-    this.messages = MOCKMESSAGES;
+  constructor(private http: HttpClient) { 
+    
   }
 
   getMessages(): Message[] {
-    return this.messages.slice();
+    this.http
+    .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/messages.json")
+    .subscribe((messages: Message[]) => {
+      this.messages = messages;
+
+
+      this.messageChangedEvent.next(this.messages.slice());
+    })
+  return this.messages;
   }
 
   getMessage(id: string): Message {

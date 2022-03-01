@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Document } from './documents/document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,7 @@ export class DocumentService {
   public documentListChangedEvent = new Subject<Document[]>();
   private maxDocumentId: number;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-    this.documents = MOCKDOCUMENTS;
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
     this.maxDocumentId = this.getMaxId();
   }
 
@@ -29,6 +28,18 @@ export class DocumentService {
   }
 
   getDocuments(): Document[] {
+    this.http
+      .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/documents.json")
+      .subscribe((documents: Document[]) => {
+        this.documents = documents;
+
+        this.maxDocumentId = this.getMaxId();
+
+        this.documents.sort((a, b)=> {
+          return a.name > b.name ? 1: b.name > a.name ? -1 : 0;
+        })
+        this.documentListChangedEvent.next(this.documents.slice());
+      })
     return this.documents;
   }
 

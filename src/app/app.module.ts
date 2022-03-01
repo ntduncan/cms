@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import { DndModule} from 'ng2-dnd';
 import { ContactItemComponent } from './contacts/contact-item/contact-item.component';
@@ -49,7 +50,8 @@ import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Contact} from './contacts/contact.model';
-import {MOCKCONTACTS} from './MOCKCONTACTS';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
 @Injectable({
@@ -11,8 +11,7 @@ export class ContactService {
    public contactListChangedEvent = new Subject<Contact[]>();
    public maxId: number;
 
-   constructor() {
-      this.contacts = MOCKCONTACTS;
+   constructor(public http: HttpClient) {
       this.maxId = this.getMaxId();
    }
 
@@ -27,7 +26,19 @@ export class ContactService {
    }
 
    getContacts(): Contact[] {
-     return this.contacts//.sort((a,b) => { return a.name > b.name > 1 : b.name ? a.name ? -1 : 0})
+    this.http
+    .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/contacts.json")
+    .subscribe((contacts: Contact[]) => {
+      this.contacts = contacts;
+
+      this.maxId = this.getMaxId();
+
+      this.contacts.sort((a, b)=> {
+        return a.name > b.name ? 1: b.name > a.name ? -1 : 0;
+      })
+      this.contactListChangedEvent.next(this.contacts.slice());
+    })
+    return this.contacts;
    }
 
    getContact(id: string): Contact {
