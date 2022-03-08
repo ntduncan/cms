@@ -30,15 +30,16 @@
           <div class="col-xs-12">
             <div
               class="list-group-item clearfix"
-              *ngFor="let contact of contacts"
-              (click)="onSelected(contact)"
-              [routerLink]="['/contacts', contact.id]"
+              *ngFor="let contactEl of contacts | contactsFilter: term; let id "
+              
+              (click)="onSelected(contactEl)"
+              [routerLink]="['/contacts', contactEl.id]"
               dnd-draggable
               [dragEnables]="true"
               [dragData]="contact"
               [dropZones]="['contactGroup']"
             >
-              <cms-contact-item [contact]="contact"></cms-contact-item>
+              <cms-contact-item [contact]="contactEl"></cms-contact-item>
             </div>
           </div>
         </div>
