@@ -17,19 +17,33 @@ export class DocumentService {
     this.maxDocumentId = this.getMaxId();
   }
 
-  addDocument(newDoc: Document) {
-    if (newDoc === undefined || newDoc === null) return;
 
-    this.maxDocumentId += 1;
-    newDoc.id = this.maxDocumentId.toString();
-    this.documents.push(newDoc);
-    const documentListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentListClone);
+  addDocument(document: Document) {
+    if (!document) {
+      return;
+    }
+
+    // make sure id of the new Document is empty
+    document.id = '';
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // add to database
+    this.http.post<{ message: string, document: Document }>('http://localhost:3000/documents',
+      document,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.documents.push(responseData.document);
+          // this.sortAndSend();
+        }
+      );
   }
 
   getDocuments(): Document[] {
     this.http
-      .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/documents.json")
+      .get("https://localhost:3000/documents")
       .subscribe((documents: Document[]) => {
         this.documents = documents;
 
