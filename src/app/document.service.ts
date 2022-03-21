@@ -70,23 +70,55 @@ export class DocumentService {
     return null;
   }
 
-  updatedDocument(originalDocument: Document, newDocument: Document) {
-    if(!originalDocument || !newDocument) return
+  updateDocument(originalDocument: Document, newDocument: Document) {
+    if (!originalDocument || !newDocument) {
+      return;
+    }
 
-    let pos = this.documents.indexOf(originalDocument);
-    if (pos < 0) return; //Null Check
+    const pos = this.documents.findIndex(d => d.id === originalDocument.id);
 
+    if (pos < 0) {
+      return;
+    }
+
+    // set the id of the new Document to the id of the old Document
     newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    const documentListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentListClone);
+    newDocument._id = originalDocument._id;
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // update database
+    this.http.put('http://localhost:3000/documents/' + originalDocument.id,
+      newDocument, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.documents[pos] = newDocument;
+          // this.sortAndSend();
+        }
+      );
   }
 
+
   deleteDocument(document: Document) {
-    this.documents.splice(this.documents.indexOf(document), 1);
-    const documentListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentListClone);
-    return;
+
+    if (!document) {
+      return;
+    }
+
+    const pos = this.documents.findIndex(d => d.id === document.id);
+
+    if (pos < 0) {
+      return;
+    }
+
+    // delete from database
+    this.http.delete('http://localhost:3000/documents/' + document.id)
+      .subscribe(
+        (response: Response) => {
+          this.documents.splice(pos, 1);
+          // this.sortAndSend();
+        }
+      );
   }
 
   getMaxId(): number {

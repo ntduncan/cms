@@ -6,7 +6,6 @@ var maxContactId;
 var sequenceId = null;
 
 function SequenceGenerator() {
-
   Sequence.findOne()
     .exec(function(err, sequence) {
       if (err) {
@@ -21,6 +20,7 @@ function SequenceGenerator() {
       maxMessageId = sequence.maxMessageId;
       maxContactId = sequence.maxContactId;
     });
+    
 }
 
 SequenceGenerator.prototype.nextId = function(collectionType) {
