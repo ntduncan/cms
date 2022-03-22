@@ -9,10 +9,10 @@ function SequenceGenerator() {
   Sequence.findOne()
     .exec(function(err, sequence) {
       if (err) {
-        return res.status(500).json({
-          title: 'An error occurred',
-          error: err
-        });
+        // return res.status(500).json({
+        //   title: 'An error occurred',
+        //   error: err
+        // });
       }
 
       sequenceId = sequence._id;

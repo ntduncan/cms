@@ -31,6 +31,7 @@ export class MessageEditComponent implements OnInit {
     event.preventDefault();
 
     let message = new Message(
+      '',
       Math.random().toString(),
       this.subject.nativeElement.value,
       this.msgText.nativeElement.value,

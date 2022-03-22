@@ -27,7 +27,7 @@ export class DocumentService {
     document.id = '';
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
+    console.log("The eagle has landed")
     // add to database
     this.http.post<{ message: string, document: Document }>('http://localhost:3000/documents',
       document,
@@ -43,7 +43,7 @@ export class DocumentService {
 
   getDocuments(): Document[] {
     this.http
-      .get("https://localhost:3000/documents")
+      .get("http://localhost:3000/documents")
       .subscribe((documents: Document[]) => {
         this.documents = documents;
 
@@ -52,6 +52,7 @@ export class DocumentService {
         this.documents.sort((a, b)=> {
           return a.name > b.name ? 1: b.name > a.name ? -1 : 0;
         })
+        
         this.documentListChangedEvent.next(this.documents.slice());
       })
     return this.documents;
