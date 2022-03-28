@@ -25,27 +25,28 @@ export class DocumentService {
 
     // make sure id of the new Document is empty
     document.id = '';
-
+    console.log(document)
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    console.log("The eagle has landed")
     // add to database
     this.http.post<{ message: string, document: Document }>('http://localhost:3000/documents',
-      document,
-      { headers: headers })
-      .subscribe(
-        (responseData) => {
-          // add new document to documents
-          this.documents.push(responseData.document);
-          // this.sortAndSend();
-        }
+    document,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+        // add new document to documents
+        this.documents.push(responseData.document);
+        // this.sortAndSend();
+      }
       );
-  }
-
-  getDocuments(): Document[] {
+    }
+    
+    getDocuments(): Document[] {
+    console.log("The eagle has landed")
     this.http
       .get("http://localhost:3000/documents")
-      .subscribe((documents: Document[]) => {
-        this.documents = documents;
+      .subscribe((response: Response) => {
+        this.documents = response["documents"];
+        // console.log(response["documents"])
 
         this.maxDocumentId = this.getMaxId();
 
