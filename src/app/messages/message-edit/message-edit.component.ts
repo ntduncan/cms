@@ -6,6 +6,8 @@ import {
   ViewChild,
   EventEmitter,
 } from '@angular/core';
+import { ContactService } from 'src/app/contact.service';
+import { Contact } from 'src/app/contacts/contact.model';
 import { MessageService } from 'src/app/message.service';
 import { Message } from '../Messages.model';
 
@@ -17,10 +19,16 @@ import { Message } from '../Messages.model';
 export class MessageEditComponent implements OnInit {
   @ViewChild('subjectInput') subject: ElementRef;
   @ViewChild('msgTextInput') msgText: ElementRef;
-  
-  constructor(private messageService: MessageService) {}
+  currentSender: Contact;
 
-  ngOnInit(): void {}
+  constructor(
+    private messageService: MessageService,
+    private contactService: ContactService
+    ) {}
+
+  ngOnInit(): void {
+    this.currentSender = this.contactService.getContact("101")
+  }
 
   onClear() {
     this.subject.nativeElement.value = '';
@@ -35,9 +43,9 @@ export class MessageEditComponent implements OnInit {
       Math.random().toString(),
       this.subject.nativeElement.value,
       this.msgText.nativeElement.value,
-      '12'
+      this.currentSender
     );
-    console.log(message)
+    console.log(message);
     this.messageService.addMessage(message);
 
     this.onClear();

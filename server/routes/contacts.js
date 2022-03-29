@@ -24,13 +24,15 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const maxContactId = sequenceGenerator.nextId("contacts");
   
+    console.log(req.body)
+
     const contact = new Contact({
-      id: maxMessageId,
+      id: maxContactId,
       name: req.body.name,
-      email: req.body.description,
-      phone: req.body.url,
-      mageUrl: req.body.url,
-      groups: req.body.url
+      email: req.body.email,
+      phone: req.body.phone,
+      imageUrl: req.body.imageUrl,
+      groups: req.body.group
     });
   
     contact.save()
@@ -42,7 +44,7 @@ router.post('/', (req, res, next) => {
       })
       .catch(error => {
          res.status(500).json({
-            message: 'An error occurred',
+            message: "An error occured",
             error: error
           });
       });

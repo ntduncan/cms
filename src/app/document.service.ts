@@ -25,7 +25,7 @@ export class DocumentService {
 
     // make sure id of the new Document is empty
     document.id = '';
-    console.log(document)
+    
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     // add to database
     this.http.post<{ message: string, document: Document }>('http://localhost:3000/documents',
@@ -38,6 +38,7 @@ export class DocumentService {
         // this.sortAndSend();
       }
       );
+      this.documentListChangedEvent.next(this.documents.slice());
     }
     
     getDocuments(): Document[] {

@@ -15,11 +15,9 @@ export class MessageService {
 
   getMessages(): Message[] {
     this.http
-    .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/messages.json")
+    .get("http://localhost:3000/messages")
     .subscribe((messages: Message[]) => {
       this.messages = messages;
-
-
       this.messageChangedEvent.next(this.messages.slice());
     })
   return this.messages;
@@ -35,7 +33,23 @@ export class MessageService {
   }
   
   addMessage(message: Message): void {
-    this.messages.push(message);
-    this.messageChangedEvent.emit(this.messages.slice());
+    if (!message) {
+      return;
+    }
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ message: Message }>('http://localhost:3000/messages',
+    message,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+        // add new document to documents
+        this.messages.push(responseData.message);
+        // this.sortAndSend();
+      }
+      );
+    // this.messages.push(message);
+    this.messageChangedEvent.next(this.messages.slice());
   }
 }

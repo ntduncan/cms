@@ -18,18 +18,25 @@ export class ContactService {
    addContact(newContact: Contact) {
     if(!newContact) return;
 
-    this.maxId += 1;
-    newContact.id = this.maxId.toString();
-    this.contacts.push(newContact);
-    const contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone)
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    // add to database
+    this.http.post<{ message: string, contact: Contact }>('http://localhost:3000/contacts',
+    newContact,
+    { headers: headers })
+    .subscribe(
+      (responseData) => {
+        this.contacts.push(responseData.contact);
+      }
+      );
+    this.contactListChangedEvent.next(this.contacts.slice())
    }
 
    getContacts(): Contact[] {
     this.http
-    .get("https://wdd430-fe5c9-default-rtdb.firebaseio.com/contacts.json")
-    .subscribe((contacts: Contact[]) => {
-      this.contacts = contacts;
+    .get("http://localhost:3000/contacts")
+    .subscribe((response: Response) => {
+      
+      this.contacts = response["contacts"];
 
       this.maxId = this.getMaxId();
 
@@ -53,10 +60,22 @@ export class ContactService {
     if(pos < 0) return; //Null check
 
     newContact.id = originalContact.id;
+    // newContact._id = originalContact._id;
     this.contacts[pos] = newContact;
 
-    const contactListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactListClone);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // update database
+    this.http.put('http://localhost:3000/contacts/' + originalContact.id,
+      newContact, { headers: headers })
+      .subscribe(
+        (response: Response) => {
+          this.contacts[pos] = newContact;
+          // this.sortAndSend();
+        }
+      );
+
+    this.contactListChangedEvent.next(this.contacts.slice());
 
    }
 
