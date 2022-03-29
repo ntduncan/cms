@@ -42,12 +42,11 @@ export class DocumentService {
     }
     
     getDocuments(): Document[] {
-    console.log("The eagle has landed")
+    
     this.http
       .get("http://localhost:3000/documents")
       .subscribe((response: Response) => {
         this.documents = response["documents"];
-        // console.log(response["documents"])
 
         this.maxDocumentId = this.getMaxId();
 
